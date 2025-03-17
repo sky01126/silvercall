@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.3</version> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.silvercall</groupId>
+    <artifactId>silvercall</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>silvercall</name>
+    <description>silvercall project for Spring Boot</description>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <properties>
+        <java.version>17</java.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Skip tests when creating maven -->
+        <maven.test.skip>true</maven.test.skip>
+
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!-- Build project name -->
+        <final.name>${project.artifactId}</final.name>
+
+        <!-- ==================== Analyze exclusion file settings in SonarQube ==================== -->
+        <sonar.exclusions>pom.xml
+            , **/*.css
+            , **/*.js
+            , **/*.jsp
+            , **/*.html
+            , **/package-info.java
+            , **/*Validation*.java
+            , **/*Configuration.java
+            , **/*Property.java
+            , **/package-info.java
+            , **/Application.java
+            , **/TomcatWebServerCustomizer.java
+            , **/AbstractController.java
+            , **/ControllerExceptionAdvice.java
+            , **/CustomErrorController.java
+            , **/RequestException.java
+            , **/RequestParamCamelCase.java
+            , **/RequestParamCamelCaseServletModelAttributeMethodProcessor.java</sonar.exclusions>
+        <sonar.test.exclusions>**/*</sonar.test.exclusions>
+
+        <!-- ==================== Spring boot cloud dependency ==================== -->
+        <spring-cloud.version>2024.0.0</spring-cloud.version>
+
+        <!-- ==================== Logback access log dependency ==================== -->
+        <logback-access.version>[2.0.0,)</logback-access.version>
+        <logback-access-spring-boot-starter.version>[4.0.0,)</logback-access-spring-boot-starter.version>
+
+        <!-- ==================== Third party dependency ==================== -->
+        <guava.version>[33.0.0-jre,)</guava.version>
+        <logstash-logback-encoder.version>[8.0,)</logstash-logback-encoder.version>
+        <springdoc-openapi.version>[2.0.0,)</springdoc-openapi.version>
+        <taglibs-standard.version>1.2.5</taglibs-standard.version>
+
+        <!-- ==================== Web Jars ==================== -->
+        <webjars-locator-jboss-vfs.version>0.1.0</webjars-locator-jboss-vfs.version>
+        <bootstrap.version>[5.0.0,)</bootstrap.version>
+    </properties>
+    <dependencies>
+        <!-- ==================== Spring boot dependency ==================== -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ==================== Spring cloud dependency ==================== -->
+        <!-- <dependency> -->
+        <!--     <groupId>org.springframework.cloud</groupId> -->
+        <!--     <artifactId>spring-cloud-starter-kubernetes-fabric8-all</artifactId> -->
+        <!-- </dependency> -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- ==================== Logback access log dependency ==================== -->
+        <dependency>
+            <groupId>ch.qos.logback.access</groupId>
+            <artifactId>logback-access-tomcat</artifactId>
+            <version>${logback-access.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.akkinoc.spring.boot</groupId>
+            <artifactId>logback-access-spring-boot-starter</artifactId>
+            <version>${logback-access-spring-boot-starter.version}</version>
+        </dependency>
+
+        <!-- ==================== Third party dependency ==================== -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash-logback-encoder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>nz.net.ultraq.thymeleaf</groupId>
+            <artifactId>thymeleaf-layout-dialect</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>${taglibs-standard.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi.version}</version>
+        </dependency>
+
+        <!-- ==================== Web Jars ==================== -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+        </dependency>
+        <!-- JBoss - webjars-locator -->
+        <!--<dependency>-->
+        <!--    <groupId>org.webjars</groupId>-->
+        <!--    <artifactId>webjars-locator-jboss-vfs</artifactId>-->
+        <!--    <version>${webjars-locator-jboss-vfs.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- Classic -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+        </dependency>
+
+        <!-- NPM -->
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <finalName>${final.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- Do not add spring boot package at build time. -->
+                <!--<executions>-->
+                <!--    <execution>-->
+                <!--        <id>repackage</id>-->
+                <!--        <goals>-->
+                <!--            <goal>repackage</goal>-->
+                <!--        </goals>-->
+                <!--        <configuration>-->
+                <!--            <skip>true</skip>-->
+                <!--        </configuration>-->
+                <!--    </execution>-->
+                <!--</executions>-->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <delimiters>
+                        <delimiter>${resource.delimiter}</delimiter>
+                    </delimiters>
+                    <addDefaultExcludes>false</addDefaultExcludes>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+            <!-- Source creation. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Set whether to compile and run test code when building -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>${maven.test.skip}</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env>local</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+            <!--<dependencies>-->
+            <!--    <dependency>-->
+            <!--        <groupId>org.springframework.boot</groupId>-->
+            <!--        <artifactId>spring-boot-starter-tomcat</artifactId>-->
+            <!--        <scope>provided</scope>-->
+            <!--    </dependency>-->
+            <!--    <dependency>-->
+            <!--        <groupId>org.apache.tomcat.embed</groupId>-->
+            <!--        <artifactId>tomcat-embed-jasper</artifactId>-->
+            <!--        <scope>provided</scope>-->
+            <!--    </dependency>-->
+            <!--</dependencies>-->
+        </profile>
+    </profiles>
+</project>

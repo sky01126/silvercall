@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <!-- always good activate OnConsoleStatusListener -->
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="logback/defaults.xml"/>
+
+    <logger name="com.silvercall" level="${SERVICE_LOG_LEVEL}"/>
+
+    <!-- Active profile : Default, Local -->
+    <springProfile name="default | local">
+        <!-- 3rd party Loggers -->
+        <logger name="org.apache.curator" level="DEBUG"/>
+        <logger name="org.apache.ibatis.io" level="INFO"/>
+        <logger name="org.apache.http" level="DEBUG"/>
+        <logger name="org.apache.zookeeper" level="INFO"/>
+        <logger name="org.mybatis.spring" level="INFO"/>
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.springframework.jdbc" level="INFO"/>
+        <logger name="org.springframework.transaction" level="INFO"/>
+        <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG"/>
+
+        <root level="${ROOT_LOG_LEVEL}">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <!-- Active profile : Development, Testbed, QA, Staging -->
+    <springProfile name="dev | test | tb | qa | qat | stg | stage">
+        <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG"/>
+
+        <logger name="p6spy.logSQL" level="DEBUG" additivity="false">
+            <appender-ref ref="FILE-QUERY"/>
+        </logger>
+
+        <root level="${ROOT_LOG_LEVEL}">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="FILE-ERROR"/>
+        </root>
+    </springProfile>
+
+    <!-- Active profile : Production -->
+    <springProfile name="prod">
+        <root level="${ROOT_LOG_LEVEL}">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="FILE-ERROR"/>
+        </root>
+    </springProfile>
+</configuration>

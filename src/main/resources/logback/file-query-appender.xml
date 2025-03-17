@@ -1,0 +1,16 @@
+<included>
+    <appender name="FILE-QUERY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${QUEERY_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_PATH}/${LOG_FILE_PREFIX}-query.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/archive/${LOG_FILE_PREFIX}-query.%i.log</fileNamePattern>
+            <minIndex>${LOGBACK_MIN_INDEX:-1}</minIndex>
+            <maxIndex>${LOGBACK_MAX_INDEX:-10}</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>${LOGBACK_TRIGGERINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+</included>

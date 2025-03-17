@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+
+    <comment><![CDATA[ Parameter Message Source ]]></comment>
+
+    <entry key="validation.exampleRequest.exampleId.NotEmpty.message">Example ID 파라미터 값은 필수입니다.</entry>
+    <entry key="validation.exampleRequest.exampleName.NotEmpty.message">Example Name 파라미터 값은 필수입니다.</entry>
+    <entry key="validation.exampleRequest.exampleName.Size.message">Example Name 파라미터는 {min}이상 {max} 이하 값만 입력 가능합니다.</entry>
+
+</properties>
