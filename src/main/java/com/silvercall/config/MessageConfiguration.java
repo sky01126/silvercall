@@ -22,7 +22,6 @@ public class MessageConfiguration {
 
 	// @formatter:off
 	private static final String[] DEFAULT_BASENAMES = {
-			"classpath:messages/parameter",
 			"classpath:messages/response"
 	};
 	// @formatter:on

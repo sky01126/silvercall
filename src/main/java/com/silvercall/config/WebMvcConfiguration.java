@@ -1,15 +1,8 @@
 package com.silvercall.config;
 
-import java.util.List;
-
-import com.silvercall.web.lang.RequestParamCamelCaseServletModelAttributeMethodProcessor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.filter.CommonsRequestLoggingFilter;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -40,17 +33,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 	public WebMvcConfiguration(LocaleChangeInterceptor localeChangeInterceptor) {
 		this.localeChangeInterceptor = localeChangeInterceptor;
-	}
-
-	/**
-	 * Add resolvers to support custom controller method argument types.
-	 *
-	 * @param argumentResolvers initially an empty list
-	 */
-	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-		log.debug("Add resolvers to support custom controller method argument types.");
-		argumentResolvers.add(new RequestParamCamelCaseServletModelAttributeMethodProcessor());
 	}
 
 	@Override
@@ -92,26 +74,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 				.resourceChain(true)
 				.addResolver(new LiteWebJarsResourceResolver());
 		// @formatter:on
-	}
-
-	/**
-	 * Spring commons request logging filter.
-	 *
-	 * @return the commons request logging filter
-	 */
-	@Bean
-	public FilterRegistrationBean<CommonsRequestLoggingFilter> filterRegistrationBean() {
-		CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
-		loggingFilter.setIncludeClientInfo(true);
-		loggingFilter.setIncludeQueryString(true);
-		loggingFilter.setIncludePayload(true);
-		loggingFilter.setIncludeHeaders(true);
-		loggingFilter.setMaxPayloadLength(1024 * 1024);
-
-		// FilterRegistrationBean로 특정 url에서만 filter 적용 가능 (registration.addUrlPatterns("/v1/api/*"))
-		FilterRegistrationBean<CommonsRequestLoggingFilter> registration = new FilterRegistrationBean<>(loggingFilter);
-		// registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
-		return registration;
 	}
 
 }

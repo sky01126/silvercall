@@ -7,10 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import com.silvercall.web.lang.RequestParamCamelCase;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -36,18 +34,14 @@ public class ExampleRequest implements Serializable {
 	/**
 	 * Example ID
 	 */
-	@Schema(name = "example_id")
-	@NotEmpty(message = "{validation.exampleRequest.exampleId.NotEmpty.message}")
-	@RequestParamCamelCase(name = { "example_id", "EXAMPLE_ID" })
+	@NotEmpty(message = "Example ID 파라미터 값은 필수입니다.")
 	private String exampleId;
 
 	/**
 	 * Example name
 	 */
-	@Schema(name = "example_name")
-	@NotEmpty(message = "{validation.exampleRequest.exampleName.NotEmpty.message}")
-	@Size(min = 10, max = 32, message = "{validation.exampleRequest.exampleName.Size.message}")
-	@RequestParamCamelCase(name = { "example_name", "EXAMPLE_NAME" })
+	@NotEmpty(message = "Example Name 파라미터 값은 필수입니다.")
+	@Size(min = 10, max = 32, message = "Example Name 파라미터는 10 이상 32 이하 값만 입력 가능합니다.")
 	private String exampleName;
 
 }

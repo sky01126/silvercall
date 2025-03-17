@@ -2,12 +2,12 @@ package com.silvercall.lang;
 
 import org.apache.commons.lang3.StringUtils;
 
-import jakarta.servlet.http.HttpServletRequest;
 import com.silvercall.dto.response.ResultError;
 import com.silvercall.util.MessageUtils;
 import com.silvercall.util.RequestUtils;
 
-import org.springframework.beans.factory.annotation.Value;
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,31 +17,22 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
+@SuppressWarnings("unused")
 public abstract class AbstractObject {
 
-	@Value("${http.response.json:false}")
-	private boolean isJson;
+	private static final String badRequestPage = "error/400";
 
-	@Value("${http.response.error.page.400:error/400}")
-	private String badRequestPage;
+	private static final String unauthorizedPage = "error/401";
 
-	@Value("${http.response.error.page.401:error/401}")
-	private String unauthorizedPage;
+	private static final String paymentRequiredViewPage = "error/402";
 
-	@Value("${http.response.error.page.402:error/402}")
-	private String paymentRequiredViewPage;
+	private static final String forbiddenPage = "error/403";
 
-	@Value("${http.response.error.page.403:error/403}")
-	private String forbiddenPage;
+	private static final String notFoundPage = "error/404";
 
-	@Value("${http.response.error.page.404:error/404}")
-	private String notFoundPage;
+	private static final String methodNotAllowedPage = "error/405";
 
-	@Value("${http.response.error.page.405:error/405}")
-	private String methodNotAllowedPage;
-
-	@Value("${http.response.error.page.default:error/error}")
-	private String defaultErrorPage;
+	private static final String defaultErrorPage = "error/error";
 
 	/**
 	 * Response message.
@@ -279,7 +270,7 @@ public abstract class AbstractObject {
 	 */
 	protected final Object result(final HttpServletRequest request, final HttpStatus status, final Object obj,
 			final Integer code, final String message, final String view) {
-		if (this.isJson || RequestUtils.isAcceptAsJson(request)) {
+		if (RequestUtils.isAcceptAsJson(request)) {
 			HttpHeaders headers = new HttpHeaders();
 			if (RequestUtils.isIE(request)) {
 				headers.add(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
@@ -315,13 +306,13 @@ public abstract class AbstractObject {
 	private String getView(int statusCode) {
 		try {
 			return switch (HttpStatus.valueOf(statusCode)) {
-				case BAD_REQUEST -> this.badRequestPage;
-				case UNAUTHORIZED -> this.unauthorizedPage;
-				case PAYMENT_REQUIRED -> this.paymentRequiredViewPage;
-				case FORBIDDEN -> this.forbiddenPage;
-				case NOT_FOUND -> this.notFoundPage;
-				case METHOD_NOT_ALLOWED -> this.methodNotAllowedPage;
-				default -> this.defaultErrorPage;
+				case BAD_REQUEST -> badRequestPage;
+				case UNAUTHORIZED -> unauthorizedPage;
+				case PAYMENT_REQUIRED -> paymentRequiredViewPage;
+				case FORBIDDEN -> forbiddenPage;
+				case NOT_FOUND -> notFoundPage;
+				case METHOD_NOT_ALLOWED -> methodNotAllowedPage;
+				default -> defaultErrorPage;
 			};
 		} catch (Exception e) {
 			return defaultErrorPage;

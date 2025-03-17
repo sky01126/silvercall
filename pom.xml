@@ -11,7 +11,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>silvercall</name>
-    <description>silvercall project for Spring Boot</description>
+    <description>Silver Call project for Spring Boot</description>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -34,7 +34,9 @@
         <final.name>${project.artifactId}</final.name>
 
         <!-- ==================== Analyze exclusion file settings in SonarQube ==================== -->
-        <sonar.exclusions>pom.xml
+        <sonar.exclusions>
+            <![CDATA[
+            pom.xml
             , **/*.css
             , **/*.js
             , **/*.jsp
@@ -42,29 +44,24 @@
             , **/package-info.java
             , **/*Validation*.java
             , **/*Configuration.java
-            , **/*Property.java
             , **/package-info.java
             , **/Application.java
             , **/TomcatWebServerCustomizer.java
+            , **/Property.java
             , **/AbstractController.java
             , **/ControllerExceptionAdvice.java
-            , **/CustomErrorController.java
+            , **/ErrorControllerImpl.java
             , **/RequestException.java
             , **/RequestParamCamelCase.java
-            , **/RequestParamCamelCaseServletModelAttributeMethodProcessor.java</sonar.exclusions>
+            , **/AbstractController.java
+            , **/RequestParamCamelCase.java
+            , **/RequestParamCamelCaseServletModelAttributeMethodProcessor.java
+            ]]>
+        </sonar.exclusions>
         <sonar.test.exclusions>**/*</sonar.test.exclusions>
-
-        <!-- ==================== Spring boot cloud dependency ==================== -->
-        <spring-cloud.version>2024.0.0</spring-cloud.version>
-
-        <!-- ==================== Logback access log dependency ==================== -->
-        <logback-access.version>[2.0.0,)</logback-access.version>
-        <logback-access-spring-boot-starter.version>[4.0.0,)</logback-access-spring-boot-starter.version>
 
         <!-- ==================== Third party dependency ==================== -->
         <guava.version>[33.0.0-jre,)</guava.version>
-        <logstash-logback-encoder.version>[8.0,)</logstash-logback-encoder.version>
-        <springdoc-openapi.version>[2.0.0,)</springdoc-openapi.version>
         <taglibs-standard.version>1.2.5</taglibs-standard.version>
 
         <!-- ==================== Web Jars ==================== -->
@@ -109,33 +106,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ==================== Spring cloud dependency ==================== -->
-        <!-- <dependency> -->
-        <!--     <groupId>org.springframework.cloud</groupId> -->
-        <!--     <artifactId>spring-cloud-starter-kubernetes-fabric8-all</artifactId> -->
-        <!-- </dependency> -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bridge-brave</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- ==================== Logback access log dependency ==================== -->
-        <dependency>
-            <groupId>ch.qos.logback.access</groupId>
-            <artifactId>logback-access-tomcat</artifactId>
-            <version>${logback-access.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>dev.akkinoc.spring.boot</groupId>
-            <artifactId>logback-access-spring-boot-starter</artifactId>
-            <version>${logback-access-spring-boot-starter.version}</version>
-        </dependency>
-
         <!-- ==================== Third party dependency ==================== -->
         <dependency>
             <groupId>commons-codec</groupId>
@@ -149,11 +119,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>${logstash-logback-encoder.version}</version>
         </dependency>
         <dependency>
             <groupId>nz.net.ultraq.thymeleaf</groupId>
@@ -178,44 +143,22 @@
             <artifactId>lombok</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>${springdoc-openapi.version}</version>
-        </dependency>
 
         <!-- ==================== Web Jars ==================== -->
         <dependency>
             <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator-core</artifactId>
+            <artifactId>webjars-locator-lite</artifactId>
         </dependency>
-        <!-- JBoss - webjars-locator -->
-        <!--<dependency>-->
-        <!--    <groupId>org.webjars</groupId>-->
-        <!--    <artifactId>webjars-locator-jboss-vfs</artifactId>-->
-        <!--    <version>${webjars-locator-jboss-vfs.version}</version>-->
-        <!--</dependency>-->
 
         <!-- Classic -->
+
+        <!-- NPM -->
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>bootstrap</artifactId>
             <version>${bootstrap.version}</version>
         </dependency>
-
-        <!-- NPM -->
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <build>
         <finalName>${final.name}</finalName>
         <plugins>

@@ -1,31 +1,16 @@
-# Spring boot property document : https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
-# Setting spring profiles active java option : -Dspring.profiles.active=dev
-
-# How to display auto-configuration report when running a Spring Boot application
-# debug: true
-
 # Spring boot info
 spring:
   application:
     name: '@artifactId@'
 
-  config:
-    import:
-      # - classpath:config/banner.yaml
-      - classpath:config/http.yaml
-      - classpath:config/server.yaml
-      - optional:file:/opt/app-root/etc/conf/application-external.yaml
+#  config:
+#    import:
+#      - optional:file:/opt/app-root/etc/conf/application-external.yaml
   profiles:
-    # active: prod
     group:
       dev: dev
       stage: stage
       prod: prod
-
-#  mvc:
-#    view:
-#      prefix: '/WEB-INF/views/'
-#      suffix: '.jsp'
 
   thymeleaf:
     cache: false
@@ -45,10 +30,6 @@ info:
     name:         '@name@'
     description:  '@description@'
 
-# Logging config file
-# logging:
-#   config: file:/opt/app-root/etc/conf/logback-spring.xml
-
 # Actuator properties
 management:
   endpoint:
@@ -62,7 +43,6 @@ management:
           - env
           - health
           - info
-          - prometheus
   health:
     livenessState:
       enabled: true
@@ -71,6 +51,28 @@ management:
   info:
     env:
       enabled: true
+
+# Server info
+server:
+  compression:
+    enabled: true
+  error:
+    include-binding-errors: never
+    include-exception: false
+    include-message: never
+    include-stacktrace: never
+    page: /error
+    whitelabel:
+      enabled: false
+  port: 8080
+  servlet:
+    context-path: '/'
+  shutdown: graceful
+
+  tomcat:
+    # https://oingdaddy.tistory.com/224
+    # Springboot 기동시 Failed to scan : FileNotFoundException *.jar 오류
+    additional-tld-skip-patterns: '*.jar'
 
 ---
 # Development environment
@@ -98,18 +100,3 @@ spring:
     add-properties: false
     restart:
       enabled: false
-
-#---
-## Kubernetes
-#spring:
-#  config:
-#    activate:
-#      on-profile: kubernetes
-#    import: "kubernetes:"
-#
-#  cloud:
-#    kubernetes:
-#      config:
-#        enabled: true
-#        sources:
-#          - name: '@artifactId@'

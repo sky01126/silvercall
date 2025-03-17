@@ -6,15 +6,11 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import com.silvercall.web.lang.RequestParamCamelCase;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -114,20 +110,16 @@ public class ResultError extends AbstractResponse {
 		 */
 		public FieldError(Class<?> clazz, String field, String message) {
 			JsonProperty jsonProperty = null;
-			RequestParamCamelCase requestParamCamelCase = null;
 			try {
 				// create Field object
 				Field f = clazz.getDeclaredField(field);
 
 				// apply getAnnotation()
 				jsonProperty = f.getAnnotation(JsonProperty.class);
-				requestParamCamelCase = f.getAnnotation(RequestParamCamelCase.class);
 			} catch (NoSuchFieldException | SecurityException e) {
 				// ignore..
 			}
-			if (requestParamCamelCase != null) {
-				this.field = StringUtils.lowerCase(ArrayUtils.get(requestParamCamelCase.name(), 0));
-			} else if (jsonProperty != null) {
+			if (jsonProperty != null) {
 				this.field = jsonProperty.value();
 			} else {
 				this.field = field;
