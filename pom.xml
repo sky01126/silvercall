@@ -60,6 +60,10 @@
         </sonar.exclusions>
         <sonar.test.exclusions>**/*</sonar.test.exclusions>
 
+        <!-- ==================== Database Library ==================== -->
+        <mybatis-spring-boot.version>[3.0.0,)</mybatis-spring-boot.version>
+        <p6spy-spring-boot-starter.version>[1.0.0,)</p6spy-spring-boot-starter.version>
+
         <!-- ==================== Third party dependency ==================== -->
         <guava.version>[33.0.0-jre,)</guava.version>
         <taglibs-standard.version>1.2.5</taglibs-standard.version>
@@ -73,6 +77,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -104,6 +116,28 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- ==================== Database Library ==================== -->
+        <!--<dependency>-->
+        <!--    <groupId>org.mariadb.jdbc</groupId>-->
+        <!--    <artifactId>mariadb-java-client</artifactId>-->
+        <!--    <scope>runtime</scope>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis-spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gavlyukovskiy</groupId>
+            <artifactId>p6spy-spring-boot-starter</artifactId>
+            <version>${p6spy-spring-boot-starter.version}</version>
         </dependency>
 
         <!-- ==================== Third party dependency ==================== -->
