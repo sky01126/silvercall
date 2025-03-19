@@ -33,8 +33,7 @@ public class ExampleController extends AbstractController {
 
 	@GetMapping(path = "test/get", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<DefaultResponse> getExample(HttpServletRequest ignoredRequest,
-			HttpServletResponse ignoredResponse, @Valid ExampleRequest params,
-			BindingResult errors) {
+			HttpServletResponse ignoredResponse, @Valid ExampleRequest params, BindingResult errors) {
 		checkForErrors(messageSource, params.getClass(), errors);
 		log.debug("Example request : {}", params);
 		// @formatter:off
