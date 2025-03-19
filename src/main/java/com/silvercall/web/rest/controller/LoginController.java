@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/user")
-public class UserController extends AbstractController {
+@RequestMapping("api")
+public class LoginController extends AbstractController {
 
 	private final MessageSourceAccessor messageSource;
 

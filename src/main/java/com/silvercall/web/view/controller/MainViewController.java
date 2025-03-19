@@ -26,7 +26,7 @@ public class MainViewController extends AbstractViewController {
 	 * @param model model attributes.
 	 * @return view page.
 	 */
-	@RequestMapping(path = { "*" })
+	@RequestMapping(path = { "/", "main" })
 	public String main(Model model, @RequestParam(required = false, name = "user_id") String userId) {
 		log.debug("Access the main page.");
 		User user = userService.getUserByUserId(StringUtils.isBlank(userId) ? "admin" : userId);
